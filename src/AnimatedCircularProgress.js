@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Animated, Easing } from "react-native";
 import CircularProgress from "./CircularProgress";
+
 const AnimatedProgress = Animated.createAnimatedComponent(CircularProgress);
 
 export default class AnimatedCircularProgress extends React.PureComponent {
@@ -59,8 +60,8 @@ export default class AnimatedCircularProgress extends React.PureComponent {
     }
 
     const tintAnimation = this.state.fillAnimation.interpolate({
-      inputRange: [0, 100],
-      outputRange: [this.props.tintColor, this.props.tintColorSecondary],
+      inputRange: [0, 898, 902, 1300],
+      outputRange: [this.props.tintColor, this.props.tintColor, 'yellow', this.props.tintColorSecondary],
     });
 
     return tintAnimation;
@@ -83,7 +84,7 @@ AnimatedCircularProgress.propTypes = {
   ...CircularProgress.propTypes,
   prefill: PropTypes.number,
   duration: PropTypes.number,
-  easing: PropTypes.func,
+  easingNode: PropTypes.func,
   onAnimationComplete: PropTypes.func,
   useNativeDriver: PropTypes.bool,
 };
