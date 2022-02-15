@@ -7,20 +7,20 @@ export default class CircularProgress extends React.PureComponent {
   polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
     return {
-      x: centerX + radius * Math.cos(angleInRadians),
+      x: centerX - radius * Math.cos(angleInRadians),
       y: centerY + radius * Math.sin(angleInRadians),
     };
   }
 
   circlePath(x, y, radius, startAngle, endAngle) {
-    var start = this.polarToCartesian(x, y, radius, endAngle * 0.9999);
-    var end = this.polarToCartesian(x, y, radius, startAngle);
+    var end = this.polarToCartesian(x, y, radius, endAngle );
+    var start = this.polarToCartesian(x, y, radius,startAngle  * 0.9999);
     var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
     var d = ['M', start.x, start.y, 'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y];
     return d.join(' ');
   }
 
-  clampFill = fill => Math.min(100, Math.max(0, fill));
+  clampFill = fill => Math.min(1299, Math.max(3, fill));
 
   render() {
     const {
@@ -48,7 +48,7 @@ export default class CircularProgress extends React.PureComponent {
     const sizeWithPadding = size / 2 + padding / 2;
     const radius = size / 2 - maxWidthCircle / 2 - padding / 2;
 
-    const currentFillAngle = (arcSweepAngle * this.clampFill(fill)) / 100;
+    const currentFillAngle = (arcSweepAngle * this.clampFill(fill)) / 1300;
     const backgroundPath = this.circlePath(
       sizeWithPadding,
       sizeWithPadding,
@@ -158,7 +158,7 @@ CircularProgress.defaultProps = {
   tintColor: 'black',
   tintTransparency: true,
   rotation: 90,
-  lineCap: 'butt',
+  lineCap: "round",
   arcSweepAngle: 360,
   padding: 0,
   dashedBackground: { width: 0, gap: 0 },
